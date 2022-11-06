@@ -34,7 +34,7 @@ func main() {
 
 	mgCfg := cfg.Mailgun
 	emailer := email.NewClient(
-		email.WithSender("Lenslocked.com Support", "support@mg.lenslocked.com"),
+		email.WithSender("SpotImages Support", "support@mg.spotimages.com"),
 		email.WithMailgun(mgCfg.Domain, mgCfg.APIKey, mgCfg.PublicAPIKey),
 	)
 
@@ -54,17 +54,12 @@ func main() {
 	}
 
 	r.Handle("/", staticC.Home).Methods("GET")
-	r.Handle("/contact", staticC.Contact).Methods("GET")
 	r.HandleFunc("/signup", usersC.New).Methods("GET")
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 	r.Handle("/login", usersC.LoginView).Methods("GET")
 	r.HandleFunc("/login", usersC.Login).Methods("POST")
 	r.HandleFunc("/logout",
 		requireUserMw.ApplyFn(usersC.Logout)).Methods("POST")
-	r.Handle("/forgot", usersC.ForgotPwView).Methods("GET")
-	r.HandleFunc("/forgot", usersC.InitiateReset).Methods("POST")
-	r.HandleFunc("/reset", usersC.ResetPw).Methods("GET")
-	r.HandleFunc("/reset", usersC.CompleteReset).Methods("POST")
 
 	// Assets
 	assetHandler := http.FileServer(http.Dir("./assets/"))

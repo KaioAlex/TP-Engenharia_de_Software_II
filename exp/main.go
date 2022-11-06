@@ -2,15 +2,14 @@ package main
 
 import (
 	"fmt"
-
-	"lenslocked.com/models"
+	"ll/models"
 )
 
 const (
 	host     = "localhost"
 	port     = 5432
-	user     = "jon"
-	password = "your-password"
+	user     = "postgres"
+	password = "310322"
 	dbname   = "lenslocked_dev"
 )
 
