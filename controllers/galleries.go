@@ -149,49 +149,51 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 // POST /galleries/:id/images
-func (g *Galleries) ImageUpload(w http.ResponseWriter, r *http.Request) {
-	gallery, err := g.galleryByID(w, r)
+func (galleries *Galleries) ImageUpload(writer http.ResponseWriter, request *http.Request) {
+	gallery, err := galleries.galleryByID(writer, request)
 	if err != nil {
-		return
-	}
-	user := context.User(r.Context())
-	if gallery.UserID != user.ID {
-		http.Error(w, "Gallery not found", http.StatusNotFound)
-		return
-	}
-	var vd views.Data
-	vd.Yield = gallery
-	err = r.ParseMultipartForm(maxMultipartMem)
-	if err != nil {
-		vd.SetAlert(err)
-		g.EditView.Render(w, r, vd)
 		return
 	}
 
-	files := r.MultipartForm.File["images"]
-	for _, f := range files {
+	user := context.User(request.Context())
+	if gallery.UserID != user.ID {
+		http.Error(writer, "Gallery not found", http.StatusNotFound)
+		return
+	}
+	var viewsData views.Data
+	viewsData.Yield = gallery
+
+	if err = request.ParseMultipartForm(maxMultipartMem); err != nil {
+		viewsData.SetAlert(err)
+		galleries.EditView.Render(writer, request, viewsData)
+		return
+	}
+
+	files := request.MultipartForm.File["images"]
+	for it, file_idx := range files {
 		// Open the uploaded file
-		file, err := f.Open()
+		file, err := file_idx.Open()
 		if err != nil {
-			vd.SetAlert(err)
-			g.EditView.Render(w, r, vd)
+			viewsData.SetAlert(err)
+			galleries.EditView.Render(writer, request, viewsData)
+			fmt.Println("Upload error in position :", it)
 			return
 		}
 		defer file.Close()
-		err = g.is.Create(gallery.ID, file, f.Filename)
+		err = galleries.is.Create(gallery.ID, file, file_idx.Filename)
 		if err != nil {
-			vd.SetAlert(err)
-			g.EditView.Render(w, r, vd)
+			viewsData.SetAlert(err)
+			galleries.EditView.Render(writer, request, viewsData)
 			return
 		}
 	}
-	url, err := g.r.Get(EditGallery).URL("id", fmt.Sprintf("%v", gallery.ID))
+	url, err := galleries.r.Get(EditGallery).URL("id", fmt.Sprintf("%v", gallery.ID))
 	if err != nil {
 		log.Println(err)
-		http.Redirect(w, r, "/galleries", http.StatusFound)
+		http.Redirect(writer, request, "/galleries", http.StatusFound)
 		return
 	}
-	http.Redirect(w, r, url.Path, http.StatusFound)
+	http.Redirect(writer, request, url.Path, http.StatusFound)
 }
 
 // POST /galleries/:id/images/:filename/delete
