@@ -1,6 +1,6 @@
 module ll
 
-go 1.19
+go 1.18
 
 require (
 	github.com/gorilla/csrf v1.7.1
