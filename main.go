@@ -34,7 +34,7 @@ func main() {
 
 	mgCfg := cfg.Mailgun
 	emailer := email.NewClient(
-		email.WithSender("Lenslocked.com Support", "support@mg.lenslocked.com"),
+		email.WithSender("Suporte Galeria de fotos", "ex@ex.com"),
 		email.WithMailgun(mgCfg.Domain, mgCfg.APIKey, mgCfg.PublicAPIKey),
 	)
 
