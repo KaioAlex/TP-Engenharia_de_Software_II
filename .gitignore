@@ -58,8 +58,6 @@ builds/**/images/*
 **/tmp/*
 
 # Don't include our binary
-lenslocked
-lenslocked.com
 images/**
 
 .config
