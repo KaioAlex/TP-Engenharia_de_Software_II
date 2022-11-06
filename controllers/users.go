@@ -79,7 +79,7 @@ func (u *Users) Create(w http.ResponseWriter, r *http.Request) {
 
 	alert := views.Alert{
 		Level:   views.AlertLvlSuccess,
-		Message: "Welcome to ll!",
+		Message: "Welcome to SpotImages!",
 	}
 	views.RedirectAlert(w, r, "/galleries", http.StatusFound, alert)
 }
