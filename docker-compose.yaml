@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  lenslocked.com:
+    container_name: lenslocked.com
+    build: 
+      context: ./
+    working_dir: /app
+    ports:
+      - "30000:30000"
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    restart: unless-stopped
