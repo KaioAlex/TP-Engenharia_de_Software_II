@@ -1,3 +1,14 @@
-# Lens Locked
+(1) Equipe:   
+* Caio Alexandre Campos Maciel
+* Pedro Moutinho
+* Othavio Rudda da Cunha Araujo
 
-An awesome photo gallery application written in Go!
+(2) Sistema de galeria de fotos, com cadastro e login de usuários.
+
+(3) Tecnologias utilizadas:
+* Golang
+* Banco de Dados PostgreSQL
+* Docker
+
+(4) Execução
+*docker-compose up
