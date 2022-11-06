@@ -4,12 +4,10 @@ import "ll/views"
 
 func NewStatic() *Static {
 	return &Static{
-		Home:    views.NewView("bootstrap", "static/home"),
-		Contact: views.NewView("bootstrap", "static/contact"),
+		Home: views.NewView("bootstrap", "static/home"),
 	}
 }
 
 type Static struct {
-	Home    *views.View
-	Contact *views.View
+	Home *views.View
 }
