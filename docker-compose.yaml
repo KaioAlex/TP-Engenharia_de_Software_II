@@ -1,7 +1,24 @@
 version: '3.8'
 services:
-  lenslocked.com:
-    container_name: lenslocked.com
+  postgrestp:
+    image: postgres:13.2
+    container_name: postgrestp
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_USER: tpeng
+      POSTGRES_DB: tpeng
+    ports:
+      - 5432:5432
+    volumes:
+      - /home/docker/volumes/db:/var/lib/postgresql/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - postgrestpnt
+  ll:
+    container_name: ll
     build: 
       context: ./
     working_dir: /app
@@ -11,3 +28,8 @@ services:
     volumes:
       - ./:/app
     restart: unless-stopped
+    networks:
+      - postgrestpnt
+networks:
+  postgrestpnt:
+    driver: bridge
