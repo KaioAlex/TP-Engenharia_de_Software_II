@@ -8,7 +8,7 @@
 (3) Tecnologias utilizadas:
 * Como linguagem de programação principal foi utilizada Golang, com a interface para usuário utilizando bootstrap.
 
-* Para a persistência dos dados como usuários e das imagens foi utilizado o banco de dados relacional PostgreSQL, por ser robustez e performance para nossas necessidades.
+* Para a persistência dos dados, como usuários e imagens salvas, foi utilizado o banco de dados relacional PostgreSQL, por sua robustez e performance, satisfazendo assim nossas necessidades.
 
 * Outra tecnologia também utilizada foi a do Docker, onde padronizamos assim um ambiente para que qualquer pessoa com aquele instalado na sua máquina consiga executar o nosso projeto.
 
