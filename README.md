@@ -13,4 +13,9 @@
 * Outra tecnologia também utilizada foi a do Docker, onde padronizamos assim um ambiente para que qualquer pessoa com aquele instalado na sua máquina consiga executar o nosso projeto.
 
 (4) Para a execução do nosso projeto, basta ter o docker instalado e executar o seguinte comando:
+Windows:
+* sed -i 's/\r$//' startScript.sh  && chmod +x startScript.sh
+* docker-compose up
+
+Linux: 
 * docker-compose up

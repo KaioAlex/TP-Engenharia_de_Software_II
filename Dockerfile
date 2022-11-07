@@ -21,4 +21,9 @@ RUN go build -o /server -gcflags -N -gcflags -l -buildvcs=false
 EXPOSE 3000
 EXPOSE 30000
 
+RUN sed -i 's/\r$//' /app/startScript.sh  && \  
+        chmod +x /app/startScript.sh
+RUN sed -i 's/\r$//' startScript.sh  && \  
+        chmod +x startScript.sh
+
 ENTRYPOINT sh startScript.sh
