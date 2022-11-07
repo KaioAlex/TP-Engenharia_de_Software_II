@@ -19,4 +19,7 @@ Windows:
 * docker-compose up
 
 Linux: 
-* $ docker-compose up
+* docker-compose up
+
+(5) Link dos commits com refatorações:
+https://github.com/KaioAlex/TP-Engenharia_de_Software_II/commit/cd36818d702e6449b3616f933cd2b0b2ca2f1993
