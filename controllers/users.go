@@ -89,35 +89,56 @@ type LoginForm struct {
 	Password string `schema:"password"`
 }
 
+func (u *Users) SetErrorInLoginView(w http.ResponseWriter, r *http.Request, err error, customAlertError string) {
+	vd := views.Data{}
+	if customAlertError != "" {
+		vd.AlertError(customAlertError)
+	} else {
+		vd.SetAlert(err)
+	}
+
+	u.LoginView.Render(w, r, vd)
+}
+
+func getLoginFormFromRequest(r *http.Request) (LoginForm, error) {
+	var form LoginForm
+	err := parseForm(r, &form)
+	return form, err
+}
+
+func getAuthenticateError(err error) string {
+	customAlertError := ""
+	switch err {
+	case models.ErrNotFound:
+		customAlertError = "Invalid email address"
+	default:
+		customAlertError = ""
+	}
+	return customAlertError
+}
+
 // Login is used to verify the provided email address and
 // password and then log the user in if they are correct.
 //
 // POST /login
 func (u *Users) Login(w http.ResponseWriter, r *http.Request) {
-	vd := views.Data{}
-	form := LoginForm{}
-	if err := parseForm(r, &form); err != nil {
-		vd.SetAlert(err)
-		u.LoginView.Render(w, r, vd)
+
+	form, err := getLoginFormFromRequest(r)
+	if err != nil {
+		u.SetErrorInLoginView(w, r, err, "")
 		return
 	}
 
 	user, err := u.us.Authenticate(form.Email, form.Password)
 	if err != nil {
-		switch err {
-		case models.ErrNotFound:
-			vd.AlertError("Invalid email address")
-		default:
-			vd.SetAlert(err)
-		}
-		u.LoginView.Render(w, r, vd)
+		customAlertError := getAuthenticateError(err)
+		u.SetErrorInLoginView(w, r, err, customAlertError)
 		return
 	}
 
 	err = u.signIn(w, user)
 	if err != nil {
-		vd.SetAlert(err)
-		u.LoginView.Render(w, r, vd)
+		u.SetErrorInLoginView(w, r, err, "")
 		return
 	}
 
