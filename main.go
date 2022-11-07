@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"net/http"
 
@@ -16,10 +15,7 @@ import (
 )
 
 func main() {
-	boolPtr := flag.Bool("prod", false, "Provide this flag in production. This ensures that a .config file is provided before the application starts.")
-	flag.Parse()
-
-	cfg := LoadConfig(*boolPtr)
+	cfg := DefaultConfig()
 	dbCfg := cfg.Database
 	services, err := models.NewServices(
 		models.WithGorm(dbCfg.Dialect(), dbCfg.ConnectionInfo()),

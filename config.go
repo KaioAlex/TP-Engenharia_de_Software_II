@@ -1,9 +1,7 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
 )
 
 type PostgresConfig struct {
@@ -27,7 +25,8 @@ func (c PostgresConfig) ConnectionInfo() string {
 
 func DefaultPostgresConfig() PostgresConfig {
 	return PostgresConfig{
-		Host:     "postgrestp",
+		Host: "postgrestp",
+		// Host: "localhost",
 		Port:     5432,
 		User:     "tpeng",
 		Password: "12345678",
@@ -62,23 +61,4 @@ type MailgunConfig struct {
 	APIKey       string `json:"api_key"`
 	PublicAPIKey string `json:"public_api_key"`
 	Domain       string `json:"domain"`
-}
-
-func LoadConfig(configReq bool) Config {
-	f, err := os.Open(".config")
-	if err != nil {
-		if configReq {
-			panic(err)
-		}
-		fmt.Println("Using the default config...")
-		return DefaultConfig()
-	}
-	var c Config
-	dec := json.NewDecoder(f)
-	err = dec.Decode(&c)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Successfully loaded .config")
-	return c
 }
