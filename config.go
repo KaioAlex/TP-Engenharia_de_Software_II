@@ -27,8 +27,7 @@ func (c PostgresConfig) ConnectionInfo() string {
 
 func DefaultPostgresConfig() PostgresConfig {
 	return PostgresConfig{
-		Host: "postgrestp",
-		//Host:     "localhost",
+		Host:     "postgrestp",
 		Port:     5432,
 		User:     "tpeng",
 		Password: "12345678",

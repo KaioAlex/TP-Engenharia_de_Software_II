@@ -125,8 +125,7 @@ func (u *Users) Login(w http.ResponseWriter, r *http.Request) {
 }
 
 // Logout is used to delete a users session cookie (remember_token)
-// and then will update the user resource with a new remmeber
-// token.
+// and then will update the user resource with a new remember token.
 //
 // POST /logout
 func (u *Users) Logout(w http.ResponseWriter, r *http.Request) {
