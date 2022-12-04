@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Home_Response_Code(t *testing.T) {
+func TestHomeResponseCode(t *testing.T) {
 	request, _ := http.NewRequest("GET", "/", nil)
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
