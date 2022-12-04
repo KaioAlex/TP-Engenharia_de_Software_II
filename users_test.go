@@ -40,8 +40,7 @@ type Configuracao struct {
 
 func RetornaPsqlConfig() PsqlConfig {
 	return PsqlConfig{
-		//Host:     "localhost",
-		//Host:     "postgrestp",
+		Host:     "localhost",
 		Port:     5432,
 		User:     "tpeng",
 		Password: "12345678",
