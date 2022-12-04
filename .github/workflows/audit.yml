@@ -15,6 +15,8 @@ jobs:
           POSTGRES_USER: tpeng
           POSTGRES_PASSWORD: 12345678
           POSTGRES_DB: tpeng
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -30,10 +32,11 @@ jobs:
     - name: Install golang-migrate
       run: |
         curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz
-        sudo mv migrate /usr/bin
+        sudo mv migrate /usr/bin/migrate
         which migrate
+
     - name: Run migrations
-      run: make migrateup
+      run: migrate -path db/migration -database "postgresql://tpeng:12345678@localhost:5432/tpeng?sslmode=disable" -verbose up
     
     - run: go test ./...
 
