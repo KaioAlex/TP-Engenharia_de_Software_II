@@ -87,3 +87,12 @@ func must(err error) {
 		panic(err)
 	}
 }
+
+// Router for tests
+func Router() *mux.Router {
+	router := mux.NewRouter()
+	staticC := controllers.NewStatic()
+	router.Handle("/", staticC.Home).Methods("GET")
+
+	return router
+}
