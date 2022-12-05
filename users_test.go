@@ -21,6 +21,26 @@ func TestCreateUser(t *testing.T) {
 	assert.Equal(t, user.Name, "Caio", "OK response is expected")
 }
 
+func TestCreateUserEmail(t *testing.T) {
+	user := models.User{
+		Name:     "Jose Guimaraes",
+		Email:    "jose@gmail.com",
+		Password: "13579246",
+	}
+
+	assert.Equal(t, user.Email, "jose@gmail.com", "OK response is expected")
+}
+
+func TestCreateUserPassword(t *testing.T) {
+	user := models.User{
+		Name:     "Othavio Alberto",
+		Email:    "ott@gmail.com",
+		Password: "987654321",
+	}
+
+	assert.Equal(t, user.Password, "987654321", "OK response is expected")
+}
+
 func (u *Users) TestCreateUserWithSmallPassword(t *testing.T) {
 	user := models.User{
 		Name:     "Caio",
